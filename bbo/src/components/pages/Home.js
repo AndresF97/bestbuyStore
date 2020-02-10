@@ -4,6 +4,7 @@ import {Row,Col,InputGroup,FormControl,Button,Card} from "react-bootstrap"
 function Home(){
     return(
     <div>
+    {/* This input area will allow you to search for items */}
     <Row>
     <Col xs={{span: 4, offset: 4 }} className="text-center">
     <InputGroup className="mt-3 mb-3">
@@ -18,6 +19,7 @@ function Home(){
   </Col>
   </Row>
   <Row>
+      {/* These button will have pre render data that will search for items once selected */}
     <Col xs={3}>
     <h2>Pick Category:</h2>
     </Col>
@@ -34,17 +36,24 @@ function Home(){
     <Button variant="outline-secondary">Secondary</Button>{' '}
     </Col>
     </Row>
-    <Card style={{ width: '18rem' }}>
-  <Card.Img variant="top" src="holder.js/100px180" />
+    {/* Just like the buttons these cards will render depeneding on the info */}
+  <Row className="mt-2">
+  <Col>
+  <Card style={{ width: '18rem' }}>
+  <Card.Img variant="top" src="https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5792/5792405_sd.jpg;maxHeight=200;maxWidth=300" />
   <Card.Body>
-    <Card.Title>Card Title</Card.Title>
-    <Card.Text>
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
+    <Card.Title>WD - Easystore 4TB External USB 3.0 Portable Hard Drive - Black</Card.Title>
+    <Card.Text className="text-center">$99.99</Card.Text>
+    <Card.Text> 
+        Portable hard drive
+        Quick install guide
+        USB cable
+        WD Discovery™ software with WD Backup™ and WD Drive Utilities™
     </Card.Text>
-    <Button variant="primary">Go somewhere</Button>
   </Card.Body>
 </Card>
+</Col>
+</Row>
     </div>
     )
 }
