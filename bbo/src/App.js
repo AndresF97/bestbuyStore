@@ -6,7 +6,8 @@ import Log from "./components/pages/logIn"
 import Search from "./components/pages/itemSearch"
 import Payment from "./components/pages/payment"
 import Cart from "./components/pages/Cart"
-//Note Work on Cart page
+//Note Set Routes
+//Note do the loading animataion once page is loading
 function App(){
     return(
 
