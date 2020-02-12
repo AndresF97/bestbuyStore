@@ -1,10 +1,26 @@
-import React from "react"
-import {Col,Row,Form,Button,Container} from "react-bootstrap"
+import React,{useState}from "react"
+import {Col,Row,Form,Button,Container,Alert} from "react-bootstrap"
 
 
 function Billing() {
+    const [show, setShow] = useState(false);
     return(
+        
         <Container>
+            <Alert show={show} variant="success">
+        <Alert.Heading>How's it going?!</Alert.Heading>
+        <p>
+          Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget
+          lacinia odio sem nec elit. Cras mattis consectetur purus sit amet
+          fermentum.
+        </p>
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close
+          </Button>
+        </div>
+      </Alert>
         <Row>
             <Col>
             <Form>
@@ -141,9 +157,7 @@ function Billing() {
                 </Form.Group>
             </Form.Row>
             </Form>
-            <Button variant="primary" className="mt-5" size="lg" block>
-                Pay For Your Order!
-            </Button>
+            {!show && <Button onClick={() => setShow(true)}>Show Alert</Button>}
             </Col>
 
             </Col>
