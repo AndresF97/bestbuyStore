@@ -1,7 +1,16 @@
-import React from "react"
+import React,{Component} from "react"
 import {Row,Col,InputGroup,FormControl,Button,Card} from "react-bootstrap"
+import "../../../../controllers/productsController"
 
-function Home(){
+class Home extends Component{
+  state={ 
+    search:"",
+    name:"",
+    salesPrice:""
+  }
+  
+
+  render(){
     return(
     <div>
     {/* This input area will allow you to search for items */}
@@ -56,6 +65,7 @@ function Home(){
 </Row>
     </div>
     )
+    }
 }
 
 export default Home
