@@ -11,10 +11,10 @@ function Navb(){
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
       <Nav.Link href="/">Home</Nav.Link>
-      {!show && <Nav.Link onClick={()=> setShow(true)}>Log In</Nav.Link>}
-      {!show && <Nav.Link onClick={()=> setShow(true)}>Sign up</Nav.Link>}
-      {show && <Nav.Link>Your Cart</Nav.Link>}
-      {show && <Nav.Link onClick={()=> setShow(false)}> Log out</Nav.Link>}
+      {!show && <Nav.Link href="/logIn" onClick={()=> setShow(true)}>Log In</Nav.Link>}
+      {!show && <Nav.Link href="/signUp"onClick={()=> setShow(true)}>Sign up</Nav.Link>}
+      {!show && <Nav.Link href="/Cart">Your Cart</Nav.Link>}
+      {!show && <Nav.Link href="/"onClick={()=> setShow(false)}> Log out</Nav.Link>}
     </Nav>
   </Navbar.Collapse>
 </Navbar>
