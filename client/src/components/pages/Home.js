@@ -1,17 +1,33 @@
 import React,{Component} from "react"
 import {Row,Col,InputGroup,FormControl,Button,Card} from "react-bootstrap"
-import "../../../../controllers/productsController"
-
+import API from "../utils/API"
 class Home extends Component{
   state={ 
     search:"",
     name:"",
     salesPrice:""
   }
-  
+
+  componentDidMount(){
+    this.loadItem("tv")
+  }
+  loadItem = () =>{
+    API.getItem("tv")
+    .then(res=> {
+      console.log(res.data)
+      //this.setState({search: res.data})
+    })
+
+  }
+  handleFormSubmit = (event) =>{
+    event.preventDefault()
+
+  } 
 
   render(){
+    
     return(
+  
     <div>
     {/* This input area will allow you to search for items */}
     <Row>
