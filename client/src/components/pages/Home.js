@@ -5,8 +5,11 @@ class Home extends Component{
   state={ 
     items:[],
     singleSearch:"",
+    name:"",
+    imgUrl:"",
     salesPrice:"",
-    shortDescription:""
+    shortDescription:"",
+    cart:[]
   }
 
   componentDidMount(){
@@ -37,8 +40,16 @@ class Home extends Component{
   } 
 
   buttonSubmit = (item) => {
-    this.setState({singleSearch: item})
-    this.loadItem();
+    API.getItem(this.state.singleSearch)
+    .then(res=> {
+      this.setState({singleSearch: item})
+      this.loadItem()
+    })
+  }
+  saveCart  = (event) =>{
+    event.preventDefault()
+    API.saveItem(this.state)
+    .then(res => console.log(res))
   }
 
   render(){
@@ -105,15 +116,15 @@ class Home extends Component{
       return(
         <Col  key={data.sku}>
   <Card style={{ width: '18rem' }} className="text-center">
-  <Card.Img variant="top" src={data.image}/>
+  <Card.Img variant="top" src={data.image}  value={data.image}/>
   <Card.Body>
-    <Card.Title>{data.name}</Card.Title>
-    <Card.Text className="text-center">${data.salePrice}</Card.Text>
-    <Card.Text> 
+    <Card.Title value={data.name}>{data.name}</Card.Title>
+    <Card.Text className="text-center" value={data.salePrice}>${data.salePrice}</Card.Text>
+    <Card.Text value={data.shortDescription}> 
        <h4>Description:</h4> {data.shortDescription}
     </Card.Text>
-    <Button variant="primary">Add to cart</Button>{' '}
-    <Button variant="warning">View Details</Button>{' '}
+    <Button variant="primary" onClick={()=>this.saveCart()}>Add to cart</Button>
+    <Button variant="warning">View Details</Button>
   </Card.Body>
 </Card>
 </Col>
