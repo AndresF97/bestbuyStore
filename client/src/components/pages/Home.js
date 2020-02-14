@@ -3,26 +3,43 @@ import {Row,Col,InputGroup,FormControl,Button,Card} from "react-bootstrap"
 import API from "../utils/API"
 class Home extends Component{
   state={ 
-    search:"",
-    name:"",
-    salesPrice:""
+    items:[],
+    singleSearch:"",
+    salesPrice:"",
+    shortDescription:""
   }
 
   componentDidMount(){
-    this.loadItem("tv")
+    this.loadItem()
   }
   loadItem = () =>{
-    API.getItem("tv")
+    API.getItem(this.state.singleSearch)
     .then(res=> {
-      console.log(res.data)
-      //this.setState({search: res.data})
+      this.setState({items: res.data})
+      console.log(this.state.singleSearch)
     })
 
   }
+  handleInputChange = event =>{
+    const {name, value} = event.target;
+    this.setState({
+      [name]: value
+    })
+    console.log(value)
+  }
+
+
   handleFormSubmit = (event) =>{
     event.preventDefault()
-
+    API.getItem(this.state.item)
+    .then(res => this.setState({items:this.value}))
+    .catch(err => console.log(err))
   } 
+
+  buttonSubmit = (item) => {
+    this.setState({singleSearch: item})
+    this.loadItem();
+  }
 
   render(){
     
@@ -36,9 +53,14 @@ class Home extends Component{
     <FormControl
       className="text-center"
       placeholder="What item do you look for?"
+      value={this.state.item || ""}
+      onChange={this.handleInputChange}
     />
     <InputGroup.Append>
-      <Button variant="outline-secondary"><i className="fas fa-search"></i></Button>
+      <Button  
+      onClick ={this.handleFormSubmit} 
+      variant="outline-secondary">
+      <i className="fas fa-search"></i></Button>
     </InputGroup.Append>
   </InputGroup>
   </Col>
@@ -49,35 +71,55 @@ class Home extends Component{
     <h2>Pick Category:</h2>
     </Col>
     <Col xs={2}>
-    <Button variant="outline-secondary">Secondary</Button>{' '}
+    <Button 
+    variant="outline-secondary"
+    value="Camera"
+    onClick={()=> this.buttonSubmit("camera")}
+    >Camera</Button>{' '}
     </Col>
     <Col xs={2}>
-    <Button variant="outline-secondary">Secondary</Button>{' '}
+    <Button 
+    variant="outline-secondary"
+    value="Telivsion"
+    onClick={()=> this.buttonSubmit("tv")}
+    >Telivision</Button>{' '}
     </Col>
     <Col xs={2}>
-    <Button variant="outline-secondary">Secondary</Button>{' '}
+    <Button 
+    variant="outline-secondary"
+    value="Computers"
+    onClick={()=> this.buttonSubmit("computer")}
+    >Computers</Button>{' '}
     </Col>
     <Col xs={2}>
-    <Button variant="outline-secondary">Secondary</Button>{' '}
+    <Button 
+    onClick={()=> this.buttonSubmit("monitor")}
+    variant="outline-secondary"
+    value="Monitors"
+    >Monitors</Button>{' '}
     </Col>
     </Row>
     {/* Just like the buttons these cards will render depeneding on the info */}
   <Row className="mt-2">
-  <Col>
-  <Card style={{ width: '18rem' }}>
-  <Card.Img variant="top" src="https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5792/5792405_sd.jpg;maxHeight=200;maxWidth=300" />
+  {this.state.items.map(data =>{
+      return(
+        <Col  key={data.sku}>
+  <Card style={{ width: '18rem' }} className="text-center">
+  <Card.Img variant="top" src={data.image}/>
   <Card.Body>
-    <Card.Title>WD - Easystore 4TB External USB 3.0 Portable Hard Drive - Black</Card.Title>
-    <Card.Text className="text-center">$99.99</Card.Text>
+    <Card.Title>{data.name}</Card.Title>
+    <Card.Text className="text-center">${data.salePrice}</Card.Text>
     <Card.Text> 
-        Portable hard drive
-        Quick install guide
-        USB cable
-        WD Discovery™ software with WD Backup™ and WD Drive Utilities™
+       <h4>Description:</h4> {data.shortDescription}
     </Card.Text>
+    <Button variant="primary">Add to cart</Button>{' '}
+    <Button variant="warning">View Details</Button>{' '}
   </Card.Body>
 </Card>
 </Col>
+
+      )
+    })}
 </Row>
     </div>
     )
