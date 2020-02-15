@@ -5,8 +5,11 @@ export default {
         //console.log("hello")
         return axios.get('/api/products/', { params: { q: query } }) 
     },
-    saveItem:function(save){
-        console.log("saved")
-        return axios.post("/api/products/",save)
+    findItem:function(){
+        console.log("saved in API Util calls")
+        return axios.post("/api/products/")
+    },
+    getItems:function(name){
+        return axios.get("/api/products/cart")
     }
 }

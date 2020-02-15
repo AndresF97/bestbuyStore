@@ -1,11 +1,13 @@
 import React,{Component} from "react"
 import {Row,Col,InputGroup,FormControl,Button,Card} from "react-bootstrap"
 import API from "../utils/API"
+
+//try to fic the code that rachel sent you
+
 class Home extends Component{
   state={ 
     items:[],
     singleSearch:"",
-    name:"",
     imgUrl:"",
     salesPrice:"",
     shortDescription:"",
@@ -28,7 +30,6 @@ class Home extends Component{
     this.setState({
       [name]: value
     })
-    console.log(value)
   }
 
 
@@ -46,12 +47,26 @@ class Home extends Component{
       this.loadItem()
     })
   }
-  saveCart  = (event) =>{
-    event.preventDefault()
-    API.saveItem(this.state)
+  saveCart  =(event) =>{
+    console.log(event.target.name)
+    var itemArr = event.target.name;
+    var itemSplit = itemArr.split(",")
+    API.getItems({
+      title:itemSplit[0],
+      seller:itemSplit[2],
+      description: event.target.value,
+      thumbnail_url: itemSplit[1],
+      price:itemSplit[3]
+    })
     .then(res => console.log(res))
+    .catch(err => console.log(err))
   }
-
+  cartItems = (event) =>{
+      API.getItems()
+      .then(res =>{
+        console.log(res)
+      })
+  }
   render(){
     
     return(
@@ -114,17 +129,17 @@ class Home extends Component{
   <Row className="mt-2">
   {this.state.items.map(data =>{
       return(
-        <Col  key={data.sku}>
-  <Card style={{ width: '18rem' }} className="text-center">
-  <Card.Img variant="top" src={data.image}  value={data.image}/>
-  <Card.Body>
-    <Card.Title value={data.name}>{data.name}</Card.Title>
-    <Card.Text className="text-center" value={data.salePrice}>${data.salePrice}</Card.Text>
-    <Card.Text value={data.shortDescription}> 
-       <h4>Description:</h4> {data.shortDescription}
+        <Col key={data.sku}>
+      <Card style={{ width: '18rem' }} className="text-center">
+      <Card.Img variant="top" src={data.image}/>
+      <Card.Body>
+        <Card.Title>{data.name}</Card.Title>
+        <Card.Text className="text-center">${data.salePrice}</Card.Text>
+        <Card.Text value={data.shortDescription}> 
+          <h4>Description:</h4> {data.shortDescription}
     </Card.Text>
-    <Button variant="primary" onClick={()=>this.saveCart()}>Add to cart</Button>
-    <Button variant="warning">View Details</Button>
+    <Button variant="primary" onClick={this.saveCart}  value={data.shortDescription} name={[data.name,data.image,data.fulfilledBy,data.salePrice]}>Add to cart</Button>
+    <Button variant="warning" id={data.sku}>View Details</Button>
   </Card.Body>
 </Card>
 </Col>

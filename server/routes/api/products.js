@@ -10,13 +10,13 @@ router
 // Matches with "/api/products/:id"
 router
   .route("/:id")
-  .get(productsController.findById)
+  .get(productsController.findCart)
   .put(productsController.update)
   .delete(productsController.remove);
 
-// Matches with "/api/products/category"
+// Matches with "/api/products/cart"
 router
-  .route("/category")
-  .get(productsController.findByClass)
-
+  .route("/cart")
+  .get(productsController.findCart)
+//tr
 module.exports = router;

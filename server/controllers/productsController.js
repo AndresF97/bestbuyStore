@@ -18,34 +18,12 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
-  findByClass: function(req, res) {
-    if (req.query.q === "") {
-      req.query.q = "mobile";
-    }
-    console.log("REQ CONTR: ", req.query.q);
-    res.json(true);
-    axios
-      .get(
-        `https://api.bestbuy.com/v1/products(sku=
-        ${req.params.id})?format=json&apiKey=${process.env.BEST_BUY_API_KEY}`
-      )
-      .then(results => {
-        console.log("RESULTS!!!: ", results.data);
-        res.json([...results.data.products]);
-      })
-      .catch(err => console.log(err));
-  },
-  findById: function(req, res) {
-    axios
-      .get(
-        `https://api.bestbuy.com/v1/products(productId=${
-          req.params.id
-        })?format=json&apiKey=${process.env.BEST_BUY_API_KEY}`
-      )
-      .then(results => {
-        res.json(results.data.products[0]);
-      })
-      .catch(err => console.log(err));
+  findCart: function (req, res){
+    console.log("cart")
+    db.Product
+    .find(req.query)
+    .then(dbProduct=> res.json(dbProduct))
+    .catch(err => res.status(422).json(err))
   },
   create: function(req, res) {
     db.Product.create(req.body)
@@ -62,5 +40,5 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
+  },
 };
