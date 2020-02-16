@@ -17,6 +17,7 @@ In this website you save products and save them to your cart.
 ## Code Snippet
 ``
 <script>
+<div>
     <Row className="mt-2">
   {this.state.items.map(data =>{
       return(
@@ -38,9 +39,13 @@ In this website you save products and save them to your cart.
       )
     })}
 </Row>
+</div>
 
-    </script>
+</script>
+
 -This is the code that allows you get the information form the API call.  
+
+
 ## Author Links
 [LinkedIn](linkedin.com/in/andres-felipe-jimenez-ferreira-b67a35192)
 [GitHub](https://github.com/AndresF97)
