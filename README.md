@@ -15,7 +15,8 @@
 In this website you save products and save them to your cart.
 
 ## Code Snippet
-``
+```html
+<html>
 <script>
 <div>
     <Row className="mt-2">
@@ -42,6 +43,8 @@ In this website you save products and save them to your cart.
 </div>
 
 </script>
+</html>
+```
 
 -This is the code that allows you get the information form the API call.  
 
