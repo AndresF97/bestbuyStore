@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const isAuthenticated = require("../../server/config/isAuthenticated");
+const isAuthenticated = require("../../config/isAuthenticated");
 const auth = require("../../server/config/auth");
 const usersController = require("../../controllers/usersController");
 
